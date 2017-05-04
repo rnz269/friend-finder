@@ -188,9 +188,70 @@
   </div>
 
   <script type="text/javascript">
-   
+   // Need form validation
+   // Then need to extract user input
+   // Then need to send to server
 
-   
+   // Form validation
+
+   var proxyComplete = true;
+   var userInput = {};
+
+     // Capture the form inputs
+    $("#submit").on("click", function(event) {
+      event.preventDefault();
+
+   function verifyComplete () {
+    $(".form-control").each(function() {
+      if ($(this).val() === "") {
+        proxyComplete = false;
+      }
+    });
+
+    $(".chosen-select").each(function() {
+      if ($(this).val() === "") {
+        proxyComplete = false;
+      }
+    });
+    
+    return proxyComplete;
+
+  }
+ 
+
+   verifyComplete();
+   if(proxyComplete === true) {
+    userInput = {
+      name: $("#name").val(),
+      photo: $("#photo").val(),
+      scores: [
+       $("#q1").val(), 
+       $("#q2").val(),
+       $("#q3").val(),
+       $("#q4").val(),
+       $("#q5").val(),
+       $("#q6").val(),
+       $("#q7").val(),
+       $("#q8").val(),
+       $("#q9").val(),
+       $("#q10").val()
+      ]
+   };
+  };
+
+console.log(userInput); 
+// userInput not working! Check. Error was used reference to class, not id. 
+
+$.post("/api/friends", userInput, function(data) {
+  console.log("Submitted to server.");
+});
+
+});
+
+
+
+
+
   </script>
 
 </body>
